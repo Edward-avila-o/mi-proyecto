@@ -1,0 +1,13 @@
+# Credenciales y configuración local
+.env
+*.key
+*.pem
+
+# Evidencias sin anonimizar y capturas de tráfico
+evidencias-crudas/
+*.pcap
+
+# Archivos temporales de Office y del sistema
+~$*
+.DS_Store
+Thumbs.db

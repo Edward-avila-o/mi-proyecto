@@ -1,0 +1,2 @@
+﻿"ID";"Caso";"Descripción del hallazgo";"Activo afectado";"Probabilidad";"Impacto";"Severidad";"Control relacionado";"Estado"
+"H-XXX";"P0X";"Qué se encontró, dónde y cómo se comprobó";"Sistema, servicio o dato";"Alta / Media / Baja";"Alto / Medio / Bajo";"Según rúbrica 13.1";"Categoría NIST CSF 2.0 y control ISO/IEC 27001";"Abierto / En tratamiento / Cerrado"
