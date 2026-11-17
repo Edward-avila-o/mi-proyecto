@@ -1,6 +1,6 @@
 # Metodología: fases, actores, aplicación y evaluación
 
-> Parte del documento **EDWARD_FW** · versión completa en [`docs/EDWARD_FW_Framework.docx`](EDWARD_FW_Framework.docx) y [PDF](EDWARD_FW_Framework.pdf).
+> Parte del documento **FORTIS** · versión completa en [`docs/FORTIS_Framework.docx`](FORTIS_Framework.docx) y [PDF](FORTIS_Framework.pdf).
 
 ## 7. ESPECIFICACIÓN DE LAS FASES
 
@@ -78,7 +78,7 @@ Criterio de cierre: se repitieron los casos de prueba, las correcciones se confi
 
 La Figura 2 es un diagrama de secuencia UML que muestra cómo interactúan los actores durante las seis fases. Cada flecha indica qué actor inicia una acción y quién la recibe, y el número muestra el orden. El recuadro loop indica que el ciclo se repite cuando la verificación genera nuevos ajustes.
 
-![Diagrama de secuencia UML de la interacción de responsabilidades entre los siete actores de EDWARD_FW en las fases 01 a 06.](figuras/fig2_uml.png)
+![Diagrama de secuencia UML de la interacción de responsabilidades entre los siete actores de FORTIS en las fases 01 a 06.](figuras/fig2_uml.png)
 
 **Figura 2.** *Diagrama de secuencia UML: interacción de responsabilidades entre los actores.*
 
@@ -135,7 +135,7 @@ Los laboratorios FC-LAB-001 a FC-LAB-010 son los diez laboratorios realizados en
 
 Se propone un solo repositorio en GitHub con carpetas por función. Las ramas se usan para cambios temporales y revisión, y los laboratorios quedan como carpetas fijas en main.
 
-EDWARD_FW-framework/  
+FORTIS-framework/  
 README.md  
 docs/{framework,arquitectura,metodologia,glosario}.md  
 framework/{fases,protocolos,matrices}/  

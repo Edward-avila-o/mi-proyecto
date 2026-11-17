@@ -1,6 +1,6 @@
 # Protocolos de aplicación
 
-> Parte del documento **EDWARD_FW** · versión completa en [`docs/EDWARD_FW_Framework.docx`](../../docs/EDWARD_FW_Framework.docx) y [PDF](../../docs/EDWARD_FW_Framework.pdf).
+> Parte del documento **FORTIS** · versión completa en [`docs/FORTIS_Framework.docx`](../../docs/FORTIS_Framework.docx) y [PDF](../../docs/FORTIS_Framework.pdf).
 
 ### 5.5. Principios rectores
 

@@ -1,6 +1,6 @@
 # Fases del ciclo metodológico
 
-> Parte del documento **EDWARD_FW** · versión completa en [`docs/EDWARD_FW_Framework.docx`](../../docs/EDWARD_FW_Framework.docx) y [PDF](../../docs/EDWARD_FW_Framework.pdf).
+> Parte del documento **FORTIS** · versión completa en [`docs/FORTIS_Framework.docx`](../../docs/FORTIS_Framework.docx) y [PDF](../../docs/FORTIS_Framework.pdf).
 
 ![Arquitectura metodológica](../../docs/figuras/fig1_arquitectura.png)
 
@@ -80,7 +80,7 @@ Criterio de cierre: se repitieron los casos de prueba, las correcciones se confi
 
 La Figura 2 es un diagrama de secuencia UML que muestra cómo interactúan los actores durante las seis fases. Cada flecha indica qué actor inicia una acción y quién la recibe, y el número muestra el orden. El recuadro loop indica que el ciclo se repite cuando la verificación genera nuevos ajustes.
 
-![Diagrama de secuencia UML de la interacción de responsabilidades entre los siete actores de EDWARD_FW en las fases 01 a 06.](../../docs/figuras/fig2_uml.png)
+![Diagrama de secuencia UML de la interacción de responsabilidades entre los siete actores de FORTIS en las fases 01 a 06.](../../docs/figuras/fig2_uml.png)
 
 **Figura 2.** *Diagrama de secuencia UML: interacción de responsabilidades entre los actores.*
 

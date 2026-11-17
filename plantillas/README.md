@@ -1,6 +1,6 @@
 # Plantillas
 
-Formatos que se diligencian al aplicar EDWARD_FW. Los archivos `.csv` se abren en Excel. La primera fila de datos es una guía y se reemplaza por los datos reales.
+Formatos que se diligencian al aplicar FORTIS. Los archivos `.csv` se abren en Excel. La primera fila de datos es una guía y se reemplaza por los datos reales.
 
 | Archivo | Anexo | Para qué sirve |
 |---|---|---|

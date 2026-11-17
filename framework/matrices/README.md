@@ -1,10 +1,10 @@
 # Matrices del framework
 
-> Parte del documento **EDWARD_FW** · versión completa en [`docs/EDWARD_FW_Framework.docx`](../../docs/EDWARD_FW_Framework.docx) y [PDF](../../docs/EDWARD_FW_Framework.pdf).
+> Parte del documento **FORTIS** · versión completa en [`docs/FORTIS_Framework.docx`](../../docs/FORTIS_Framework.docx) y [PDF](../../docs/FORTIS_Framework.pdf).
 
 ### 4.1. Matriz de correspondencia por fase
 
-En esta tabla se relaciona cada fase de EDWARD_FW con las funciones y categorías de NIST CSF 2.0, las etapas de NIST SP 800-115, el proceso de gestión del riesgo de ISO/IEC 27005:2022 y las cláusulas (Cl.) y controles del Anexo A de ISO/IEC 27001:2022.
+En esta tabla se relaciona cada fase de FORTIS con las funciones y categorías de NIST CSF 2.0, las etapas de NIST SP 800-115, el proceso de gestión del riesgo de ISO/IEC 27005:2022 y las cláusulas (Cl.) y controles del Anexo A de ISO/IEC 27001:2022.
 
 <table>
 <colgroup>
@@ -75,7 +75,7 @@ Categorías PR aplicables al control</td>
 <td><strong>06 Verificación</strong></td>
 <td>ID.IM Mejora<br />
 GV.OV Supervisión</td>
-<td>Complemento propio de EDWARD_FW: reejecución de casos comparables</td>
+<td>Complemento propio de FORTIS: reejecución de casos comparables</td>
 <td>Seguimiento y revisión</td>
 <td>Cl. 9 Evaluación del desempeño<br />
 Cl. 10 Mejora</td>

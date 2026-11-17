@@ -1,12 +1,12 @@
 # Definición y arquitectura metodológica
 
-> Parte del documento **EDWARD_FW** · versión completa en [`docs/EDWARD_FW_Framework.docx`](EDWARD_FW_Framework.docx) y [PDF](EDWARD_FW_Framework.pdf).
+> Parte del documento **FORTIS** · versión completa en [`docs/FORTIS_Framework.docx`](FORTIS_Framework.docx) y [PDF](FORTIS_Framework.pdf).
 
-## 5. DEFINICIÓN DE EDWARD_FW
+## 5. DEFINICIÓN DE FORTIS
 
 ### 5.1. Definición
 
-EDWARD_FW es una propuesta de framework metodológico que reúne procedimientos ofensivos, defensivos y colaborativos para identificar, analizar, evaluar, mitigar y verificar riesgos de ciberseguridad, a partir de pruebas controladas, evidencias reproducibles y mejora continua.
+FORTIS es una propuesta de framework metodológico que reúne procedimientos ofensivos, defensivos y colaborativos para identificar, analizar, evaluar, mitigar y verificar riesgos de ciberseguridad, a partir de pruebas controladas, evidencias reproducibles y mejora continua. El nombre FORTIS viene del latín y significa "fuerte", porque el objetivo del marco es fortalecer la ciberseguridad de los sistemas que se evalúan.
 
 ### 5.2. Objetivo general
 
@@ -39,10 +39,10 @@ El framework no garantiza que no existan vulnerabilidades; lo que se logra cubri
 | 05 Mitigación     | Aplicar medidas de tratamiento                    | Plan de tratamiento ejecutado |
 | 06 Verificación   | Repetir pruebas y comparar resultados             | Informe de efectividad        |
 
-En la Figura 1 se muestra la arquitectura metodológica de EDWARD_FW. Los referentes técnicos y normativos guían un ciclo de seis fases, y cada fase entrega un producto. El enfoque Purple Team une las actividades ofensivas (Red Team) y defensivas (Blue Team) durante todo el ciclo. Los dominios, los instrumentos y los actores se usan según el alcance aprobado, y la gestión de evidencias, los indicadores y los principios sirven de base para todo el proceso.
+En la Figura 1 se muestra la arquitectura metodológica de FORTIS. Los referentes técnicos y normativos guían un ciclo de seis fases, y cada fase entrega un producto. El enfoque Purple Team une las actividades ofensivas (Red Team) y defensivas (Blue Team) durante todo el ciclo. Los dominios, los instrumentos y los actores se usan según el alcance aprobado, y la gestión de evidencias, los indicadores y los principios sirven de base para todo el proceso.
 
-![Arquitectura metodológica de EDWARD_FW: referentes, ciclo de seis fases con retroalimentación, enfoque Purple Team, dominios, instrumentos, actores y base transversal.](figuras/fig1_arquitectura.png)
+![Arquitectura metodológica de FORTIS: referentes, ciclo de seis fases con retroalimentación, enfoque Purple Team, dominios, instrumentos, actores y base transversal.](figuras/fig1_arquitectura.png)
 
-**Figura 1.** *Arquitectura metodológica de EDWARD_FW.*
+**Figura 1.** *Arquitectura metodológica de FORTIS.*
 
 La arquitectura es cíclica: lo que se encuentra en la verificación sirve para mejorar la preparación y la prevención del siguiente ciclo. Los procedimientos se pueden adaptar al dominio y al alcance aprobado.

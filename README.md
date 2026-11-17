@@ -1,16 +1,16 @@
-# EDWARD_FW
+# FORTIS
 
 **Framework metodológico para la evaluación, análisis y fortalecimiento de la ciberseguridad**
 
 Autor: **Edward Fernando Ávila Ojeda** · Universidad Santo Tomás, seccional Tunja
 
-📄 Documento completo: [Word](docs/EDWARD_FW_Framework.docx) · [PDF](docs/EDWARD_FW_Framework.pdf)
+📄 Documento completo: [Word](docs/FORTIS_Framework.docx) · [PDF](docs/FORTIS_Framework.pdf)
 
 ## ¿Qué es?
 
-EDWARD_FW es un marco metodológico que organiza las evaluaciones de ciberseguridad en un ciclo de seis fases: preparación, prevención, identificación, análisis, mitigación y verificación. Integra los enfoques Red Team, Blue Team y Purple Team, y se apoya en referentes como NIST CSF 2.0, NIST SP 800-115, MITRE ATT&CK, OWASP e ISO/IEC 27001 y 27005. Los laboratorios del curso se incorporan como instrumentos del marco.
+FORTIS es un marco metodológico que organiza las evaluaciones de ciberseguridad en un ciclo de seis fases: preparación, prevención, identificación, análisis, mitigación y verificación. Integra los enfoques Red Team, Blue Team y Purple Team, y se apoya en referentes como NIST CSF 2.0, NIST SP 800-115, MITRE ATT&CK, OWASP e ISO/IEC 27001 y 27005. Los laboratorios del curso se incorporan como instrumentos del marco. El nombre viene del latín *fortis*, que significa "fuerte".
 
-![Arquitectura metodológica de EDWARD_FW](docs/figuras/fig1_arquitectura.png)
+![Arquitectura metodológica de FORTIS](docs/figuras/fig1_arquitectura.png)
 
 ## Ciclo metodológico
 
@@ -26,7 +26,7 @@ EDWARD_FW es un marco metodológico que organiza las evaluaciones de ciberseguri
 ## Estructura del repositorio
 
 ```
-EDWARD_FW-framework/
+FORTIS-framework/
 ├── README.md                  ← esta página
 ├── docs/                      ← documento completo (Word y PDF), figuras y capítulos en Markdown
 │   ├── framework.md           ← escenario, fundamentos, referentes y referencias

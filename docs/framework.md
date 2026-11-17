@@ -1,10 +1,10 @@
 # Fundamentación del framework
 
-> Parte del documento **EDWARD_FW** · versión completa en [`docs/EDWARD_FW_Framework.docx`](EDWARD_FW_Framework.docx) y [PDF](EDWARD_FW_Framework.pdf).
+> Parte del documento **FORTIS** · versión completa en [`docs/FORTIS_Framework.docx`](FORTIS_Framework.docx) y [PDF](FORTIS_Framework.pdf).
 
 ## ESCENARIO
 
-EDWARD_FW propone un marco metodológico para organizar evaluaciones de ciberseguridad por medio de seis fases: preparación, prevención, identificación, análisis, mitigación y verificación. Integra los enfoques Red Team, Blue Team y Purple Team, la seguridad de aplicaciones, el OSINT, el análisis forense y el factor humano. Los laboratorios realizados en el curso se toman como instrumentos del marco y no reemplazan la metodología. La idea es que cada práctica, desde el reconocimiento en fuentes abiertas hasta la verificación de controles, siga el mismo procedimiento: objetivos, roles, evidencias y criterios de cierre definidos desde el inicio.
+FORTIS propone un marco metodológico para organizar evaluaciones de ciberseguridad por medio de seis fases: preparación, prevención, identificación, análisis, mitigación y verificación. Integra los enfoques Red Team, Blue Team y Purple Team, la seguridad de aplicaciones, el OSINT, el análisis forense y el factor humano. Los laboratorios realizados en el curso se toman como instrumentos del marco y no reemplazan la metodología. La idea es que cada práctica, desde el reconocimiento en fuentes abiertas hasta la verificación de controles, siga el mismo procedimiento: objetivos, roles, evidencias y criterios de cierre definidos desde el inicio.
 
 El marco está pensado para usarse en cursos de ciberseguridad y en organizaciones que necesiten evaluar sus sistemas de información de forma ordenada y con autorización. En cualquier caso, se parte de un permiso expreso, se define el alcance de la evaluación y cada hallazgo debe estar respaldado por evidencias. Así se pueden comparar los resultados entre una evaluación y la siguiente, y tomar mejores decisiones sobre cómo tratar los riesgos.
 
@@ -48,7 +48,7 @@ Integrar fases, dominios, roles, instrumentos, matrices, métricas y laboratorio
 
 ## 3. MODELOS OPERATIVOS Y EQUIPOS DE CIBERSEGURIDAD
 
-| Modelo / función | Papel dentro de EDWARD_FW                                                                      |
+| Modelo / función | Papel dentro de FORTIS                                                                         |
 |------------------|------------------------------------------------------------------------------------------------|
 | Red Team         | Simulación adversaria autorizada; no se equipara toda prueba puntual a una operación Red Team. |
 | Blue Team        | Protección, detección, investigación y respuesta.                                              |
@@ -82,7 +82,7 @@ Para usar estos referentes de forma ordenada se necesita una matriz de correspon
 
 ### 4.1. Matriz de correspondencia por fase
 
-En esta tabla se relaciona cada fase de EDWARD_FW con las funciones y categorías de NIST CSF 2.0, las etapas de NIST SP 800-115, el proceso de gestión del riesgo de ISO/IEC 27005:2022 y las cláusulas (Cl.) y controles del Anexo A de ISO/IEC 27001:2022.
+En esta tabla se relaciona cada fase de FORTIS con las funciones y categorías de NIST CSF 2.0, las etapas de NIST SP 800-115, el proceso de gestión del riesgo de ISO/IEC 27005:2022 y las cláusulas (Cl.) y controles del Anexo A de ISO/IEC 27001:2022.
 
 <table>
 <colgroup>
@@ -153,7 +153,7 @@ Categorías PR aplicables al control</td>
 <td><strong>06 Verificación</strong></td>
 <td>ID.IM Mejora<br />
 GV.OV Supervisión</td>
-<td>Complemento propio de EDWARD_FW: reejecución de casos comparables</td>
+<td>Complemento propio de FORTIS: reejecución de casos comparables</td>
 <td>Seguimiento y revisión</td>
 <td>Cl. 9 Evaluación del desempeño<br />
 Cl. 10 Mejora</td>
