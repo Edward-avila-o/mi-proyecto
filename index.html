@@ -1,0 +1,1186 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FORTIS | Framework metodológico de ciberseguridad</title>
+<meta name="description" content="FORTIS: framework metodológico para la evaluación, análisis y fortalecimiento de la ciberseguridad. Edward Fernando Ávila Ojeda, Universidad Santo Tomás, seccional Tunja.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #002060;
+  --navy-2: #1F3F7A;
+  --ink: #1B2230;
+  --muted: #5A6478;
+  --paper: #FFFFFF;
+  --panel: #F2F5FA;
+  --rule: #CCD5E3;
+  --link: #1F5FA8;
+  --head: #E3EAF5;
+  --sans: "Archivo", "Segoe UI", Arial, sans-serif;
+  --serif: "Source Serif 4", Georgia, "Times New Roman", serif;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--serif); font-size: 18px; line-height: 1.65; }
+a { color: var(--link); text-underline-offset: 2px; }
+a:focus-visible, button:focus-visible, summary:focus-visible { outline: 3px solid #F2B705; outline-offset: 2px; }
+
+/* cabecera */
+.band { background: var(--navy); color: #fff; padding: 56px 24px 40px; }
+.band-inner { max-width: 1180px; margin: 0 auto; }
+.wordmark { font-family: var(--sans); font-stretch: 125%; font-weight: 800; font-size: clamp(64px, 13vw, 148px); line-height: .9; letter-spacing: .02em; margin: 0; }
+.subtitle { font-family: var(--serif); font-size: clamp(19px, 2.4vw, 24px); line-height: 1.35; max-width: 34em; margin: 18px 0 26px; color: #E4EAF5; }
+.byline { font-family: var(--sans); font-size: 16px; line-height: 1.5; color: #C9D5EA; margin: 0; }
+.byline strong { color: #fff; font-weight: 600; }
+
+/* barra de acciones */
+.bar { border-bottom: 1px solid var(--rule); background: var(--panel); }
+.bar-inner { max-width: 1180px; margin: 0 auto; padding: 14px 24px; display: flex; flex-wrap: wrap; gap: 10px 22px; align-items: center; font-family: var(--sans); font-size: 15.5px; }
+.bar a { font-weight: 600; }
+.bar .spacer { flex: 1; }
+.bar button { font: inherit; font-weight: 600; color: var(--navy); background: #fff; border: 1px solid var(--rule); border-radius: 4px; padding: 6px 12px; cursor: pointer; }
+.bar button:hover { border-color: var(--navy-2); }
+
+/* estructura */
+.layout { max-width: 1180px; margin: 0 auto; padding: 32px 24px 64px; display: grid; grid-template-columns: 250px minmax(0, 1fr); gap: 48px; }
+.side { position: sticky; top: 16px; align-self: start; max-height: calc(100vh - 32px); overflow: auto; font-family: var(--sans); font-size: 15px; line-height: 1.4; }
+.side h2 { font-size: 15px; font-weight: 700; color: var(--navy); margin: 0 0 10px; }
+.toc, .toc ol { list-style: none; margin: 0; padding: 0; }
+.toc > li { margin-bottom: 6px; }
+.toc-part > span { display: block; font-weight: 600; color: var(--muted); margin: 14px 0 4px; }
+.toc a { display: block; padding: 3px 0 3px 10px; border-left: 2px solid transparent; color: var(--ink); text-decoration: none; }
+.toc a:hover { color: var(--link); border-left-color: var(--rule); }
+.toc a.current { border-left-color: var(--navy); color: var(--navy); font-weight: 600; }
+.mobile-toc { display: none; }
+
+/* contenido */
+main { min-width: 0; }
+.part { font-family: var(--sans); font-size: 15px; font-weight: 600; color: var(--muted); margin: 40px 0 10px; padding-bottom: 6px; border-bottom: 2px solid var(--navy); }
+.part:first-of-type { margin-top: 28px; }
+details.sec { border-bottom: 1px solid var(--rule); }
+details.sec > summary { list-style: none; cursor: pointer; display: flex; align-items: baseline; gap: 14px; padding: 16px 4px; }
+details.sec > summary::-webkit-details-marker { display: none; }
+details.sec > summary::after { content: "+"; margin-left: auto; font-family: var(--sans); font-size: 26px; line-height: 1; color: var(--navy-2); }
+details.sec[open] > summary::after { content: "\2212"; }
+.sec-title { font-family: var(--sans); font-size: 22px; font-weight: 700; color: var(--navy); line-height: 1.3; }
+details.sec > summary:hover .sec-title { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 4px; }
+.sec-body { padding: 4px 4px 28px; }
+.sec-body p, .sec-body li { max-width: 42em; }
+.sec-body p { margin: 0 0 14px; }
+.sec-body h3 { font-family: var(--sans); font-size: 18px; font-weight: 700; color: var(--ink); margin: 26px 0 8px; }
+.sec-body ul, .sec-body ol { padding-left: 1.3em; margin: 0 0 14px; }
+.table-wrap { overflow-x: auto; margin: 6px 0 22px; border: 1px solid var(--rule); }
+table { border-collapse: collapse; width: 100%; font-family: var(--sans); font-size: 15px; line-height: 1.4; }
+th, td { text-align: left; vertical-align: top; padding: 8px 10px; border-bottom: 1px solid var(--rule); }
+thead th { background: var(--head); color: var(--navy); font-weight: 700; }
+tbody tr:nth-child(even) td { background: #F8FAFD; }
+td p, th p { margin: 0; max-width: none; }
+td:first-child { font-weight: 600; }
+td a { white-space: nowrap; }
+.fig-link { display: block; margin: 10px 0 6px; }
+.fig-link img { display: block; max-width: 100%; height: auto; border: 1px solid var(--rule); }
+p.ref { padding-left: 2em; text-indent: -2em; }
+.caption { font-family: var(--sans); font-size: 15px; color: var(--muted); margin-bottom: 22px !important; }
+pre, code { font-size: 15px; }
+
+footer { border-top: 1px solid var(--rule); background: var(--panel); font-family: var(--sans); font-size: 15px; color: var(--muted); }
+footer div { max-width: 1180px; margin: 0 auto; padding: 22px 24px; }
+
+@media (max-width: 900px) {
+  body { font-size: 17px; }
+  .layout { grid-template-columns: 1fr; gap: 0; padding-top: 16px; }
+  .side { display: none; }
+  .mobile-toc { display: block; font-family: var(--sans); border: 1px solid var(--rule); margin: 8px 0 8px; }
+  .mobile-toc summary { padding: 10px 14px; font-weight: 600; color: var(--navy); cursor: pointer; }
+  .mobile-toc .toc { padding: 0 14px 12px; }
+  .band { padding: 40px 16px 30px; }
+  .bar-inner, .layout { padding-left: 16px; padding-right: 16px; }
+  .sec-title { font-size: 19px; }
+}
+@media print {
+  .band { background: none; color: var(--navy); padding: 0 0 12px; }
+  .subtitle, .byline, .byline strong { color: var(--ink); }
+  .bar, .side, .mobile-toc, footer { display: none; }
+  .layout { display: block; padding: 0; }
+  details.sec > summary::after { content: ""; }
+}
+</style>
+</head>
+<body>
+<header class="band">
+  <div class="band-inner">
+    <h1 class="wordmark">FORTIS</h1>
+    <p class="subtitle">Framework metodológico para la evaluación, análisis y fortalecimiento de la ciberseguridad</p>
+    <p class="byline">Elaborado por <strong>Edward Fernando Ávila Ojeda</strong><br>Universidad Santo Tomás, seccional Tunja</p>
+  </div>
+</header>
+<nav class="bar" aria-label="Documentos">
+  <div class="bar-inner">
+    <a href="docs/FORTIS_Framework.docx" download>Descargar el documento en Word</a>
+    <a href="docs/FORTIS_Framework.pdf" target="_blank" rel="noopener">Ver el documento en PDF</a>
+    <a href="https://github.com/Edward-avila-o/mi-proyecto" target="_blank" rel="noopener">Repositorio en GitHub</a>
+    <span class="spacer"></span>
+    <button type="button" id="open-all">Abrir todas las secciones</button>
+    <button type="button" id="close-all">Cerrar todas</button>
+  </div>
+</nav>
+<div class="layout">
+  <aside class="side" aria-label="Contenido">
+    <h2>Contenido</h2>
+    <ol class="toc"><li><a href="#escenario">Escenario</a></li><li class="toc-part"><span>Parte I. Fundamentación del framework</span><ol><li><a href="#sec-1">1. Introducción</a></li><li><a href="#sec-2">2. Fundamentos de ciberseguridad</a></li><li><a href="#sec-3">3. Modelos operativos y equipos de ciberseguridad</a></li><li><a href="#sec-4">4. Referentes técnicos y normativos</a></li></ol></li><li class="toc-part"><span>Parte II. Diseño metodológico</span><ol><li><a href="#sec-5">5. Definición de FORTIS</a></li><li><a href="#sec-6">6. Arquitectura metodológica</a></li><li><a href="#sec-7">7. Especificación de las fases</a></li><li><a href="#sec-8">8. Actores y responsabilidades</a></li></ol></li><li class="toc-part"><span>Parte III. Aplicación técnica</span><ol><li><a href="#sec-9">9. Dominios de evaluación</a></li><li><a href="#sec-10">10. Catálogo de laboratorios</a></li><li><a href="#sec-11">11. Repositorio técnico y gestión de artefactos</a></li></ol></li><li class="toc-part"><span>Parte IV. Evaluación y validación</span><ol><li><a href="#sec-12">12. Modelo de evaluación</a></li><li><a href="#sec-13">13. Indicadores y métricas</a></li><li><a href="#sec-14">14. Validación y mejora continua</a></li></ol></li><li class="toc-part"><span>Parte V. Documentación y transferencia</span><ol><li><a href="#sec-15">15. Glosario técnico y metodológico</a></li><li><a href="#sec-16">16. Referencias y anexos</a></li></ol></li></ol>
+  </aside>
+  <main>
+    <details class="mobile-toc"><summary>Contenido</summary><ol class="toc"><li><a href="#escenario">Escenario</a></li><li class="toc-part"><span>Parte I. Fundamentación del framework</span><ol><li><a href="#sec-1">1. Introducción</a></li><li><a href="#sec-2">2. Fundamentos de ciberseguridad</a></li><li><a href="#sec-3">3. Modelos operativos y equipos de ciberseguridad</a></li><li><a href="#sec-4">4. Referentes técnicos y normativos</a></li></ol></li><li class="toc-part"><span>Parte II. Diseño metodológico</span><ol><li><a href="#sec-5">5. Definición de FORTIS</a></li><li><a href="#sec-6">6. Arquitectura metodológica</a></li><li><a href="#sec-7">7. Especificación de las fases</a></li><li><a href="#sec-8">8. Actores y responsabilidades</a></li></ol></li><li class="toc-part"><span>Parte III. Aplicación técnica</span><ol><li><a href="#sec-9">9. Dominios de evaluación</a></li><li><a href="#sec-10">10. Catálogo de laboratorios</a></li><li><a href="#sec-11">11. Repositorio técnico y gestión de artefactos</a></li></ol></li><li class="toc-part"><span>Parte IV. Evaluación y validación</span><ol><li><a href="#sec-12">12. Modelo de evaluación</a></li><li><a href="#sec-13">13. Indicadores y métricas</a></li><li><a href="#sec-14">14. Validación y mejora continua</a></li></ol></li><li class="toc-part"><span>Parte V. Documentación y transferencia</span><ol><li><a href="#sec-15">15. Glosario técnico y metodológico</a></li><li><a href="#sec-16">16. Referencias y anexos</a></li></ol></li></ol></details>
+    <details class="sec" id="escenario" open><summary><span class="sec-title">Escenario</span></summary><div class="sec-body"><p>FORTIS propone un marco metodológico para organizar evaluaciones de ciberseguridad por medio de seis fases: preparación, prevención, identificación, análisis, mitigación y verificación. Integra los enfoques Red Team, Blue Team y Purple Team, la seguridad de aplicaciones, el OSINT, el análisis forense y el factor humano. Los laboratorios realizados en el curso se toman como instrumentos del marco y no reemplazan la metodología. La idea es que cada práctica, desde el reconocimiento en fuentes abiertas hasta la verificación de controles, siga el mismo procedimiento: objetivos, roles, evidencias y criterios de cierre definidos desde el inicio.</p><p>El marco está pensado para usarse en cursos de ciberseguridad y en organizaciones que necesiten evaluar sus sistemas de información de forma ordenada y con autorización. En cualquier caso, se parte de un permiso expreso, se define el alcance de la evaluación y cada hallazgo debe estar respaldado por evidencias. Así se pueden comparar los resultados entre una evaluación y la siguiente, y tomar mejores decisiones sobre cómo tratar los riesgos.</p><p>El framework todavía está en fase de diseño. Para saber si es útil, consistente y reproducible hay que probarlo en casos de estudio autorizados, con métricas definidas y evidencias que se puedan verificar. Esta primera versión presenta la fundamentación, las fases, los dominios de evaluación y el catálogo de laboratorios. Más adelante se espera agregar los resultados de la validación, los ajustes necesarios y nuevos laboratorios, sobre todo para el dominio D07 (detección y respuesta).</p></div></details><h2 class="part">Parte I. Fundamentación del framework</h2><details class="sec" id="sec-1"><summary><span class="sec-title">1. Introducción</span></summary><div class="sec-body"><h3 id="sec-1-1">1.1. Contexto</h3><p>Cada vez dependemos más de servicios digitales, APIs, redes y sistemas inteligentes, por lo que es más necesario evaluar qué tan expuestos están, qué controles técnicos tienen y cómo actúan las personas que los usan. La ciberseguridad necesita actividades preventivas, pruebas controladas, análisis de evidencias y mejora continua. Además, el trabajo remoto, los servicios en la nube y el uso de modelos de lenguaje (LLM) dentro de las aplicaciones aumentan la superficie de ataque y traen riesgos nuevos, como la inyección de instrucciones (prompt injection). Existen referentes reconocidos, como NIST CSF 2.0, MITRE ATT&amp;CK y OWASP, pero para aplicarlos en un curso o en una organización con pocos recursos se necesitan procedimientos concretos que unan las pruebas, los roles y las evidencias en una secuencia que se pueda repetir.</p><h3 id="sec-1-2">1.2. Problemática</h3><p>Las prácticas de reconocimiento, pentesting, defensa y análisis forense normalmente se hacen por separado. Si no hay protocolos ni criterios comunes, es difícil repetir los resultados, relacionar los hallazgos con los controles y demostrar que hubo una mejora.</p><h3 id="sec-1-3">1.3. Justificación</h3><p>Un marco metodológico ayuda a coordinar a las personas que participan, a estandarizar las pruebas y a usar evidencias que se puedan comparar, tanto en el ámbito académico como en una organización.</p><h3 id="sec-1-4">1.4. Propósito</h3><p>Ofrecer una ruta ordenada para planear evaluaciones autorizadas, identificar debilidades, analizar riesgos, aplicar tratamientos y comprobar si funcionaron.</p><h3 id="sec-1-5">1.5. Contribución esperada</h3><p>Integrar fases, dominios, roles, instrumentos, matrices, métricas y laboratorios en una estructura que se pueda repetir y que se pueda validar en la práctica.</p></div></details><details class="sec" id="sec-2"><summary><span class="sec-title">2. Fundamentos de ciberseguridad</span></summary><div class="sec-body"><div class="table-wrap"><table>
+
+<thead>
+<tr class="header">
+<th>Tema</th>
+<th>Contenido previsto</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Principios</td>
+<td>Confidencialidad, integridad, disponibilidad y trazabilidad.</td>
+</tr>
+<tr class="even">
+<td>Gestión del riesgo</td>
+<td>Activos, amenazas, vulnerabilidades, probabilidad, impacto y tratamiento.</td>
+</tr>
+<tr class="odd">
+<td>Superficie de ataque</td>
+<td>Activos expuestos, servicios, vectores y dependencias.</td>
+</tr>
+<tr class="even">
+<td>Seguridad ofensiva</td>
+<td>Reconocimiento, pruebas de penetración y emulación adversaria autorizada.</td>
+</tr>
+<tr class="odd">
+<td>Seguridad defensiva</td>
+<td>Prevención, detección, respuesta, recuperación y monitoreo.</td>
+</tr>
+<tr class="even">
+<td>Forense digital</td>
+<td>Preservación, análisis e integridad de evidencias.</td>
+</tr>
+<tr class="odd">
+<td>Aplicaciones y APIs</td>
+<td>Autenticación, autorización, sesiones, validación y exposición de información.</td>
+</tr>
+<tr class="even">
+<td>Factor humano</td>
+<td>Ingeniería social, concienciación y verificación de procesos.</td>
+</tr>
+<tr class="odd">
+<td>IA y LLM</td>
+<td>Prompt injection y controles para aplicaciones que integran modelos.</td>
+</tr>
+</tbody>
+</table></div></div></details><details class="sec" id="sec-3"><summary><span class="sec-title">3. Modelos operativos y equipos de ciberseguridad</span></summary><div class="sec-body"><div class="table-wrap"><table>
+
+<thead>
+<tr class="header">
+<th>Modelo / función</th>
+<th>Papel dentro de FORTIS</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Red Team</td>
+<td>Simulación adversaria autorizada; no se equipara toda prueba puntual a una operación Red Team.</td>
+</tr>
+<tr class="even">
+<td>Blue Team</td>
+<td>Protección, detección, investigación y respuesta.</td>
+</tr>
+<tr class="odd">
+<td>Purple Team</td>
+<td>Coordinación de pruebas ofensivas y defensivas para mejorar controles.</td>
+</tr>
+<tr class="even">
+<td>SOC</td>
+<td>Función de monitoreo y gestión de eventos; no es requisito para todo laboratorio.</td>
+</tr>
+<tr class="odd">
+<td>CSIRT</td>
+<td>Coordinación de respuesta ante incidentes.</td>
+</tr>
+<tr class="even">
+<td>Pentesting</td>
+<td>Evaluación técnica acotada de vulnerabilidades.</td>
+</tr>
+<tr class="odd">
+<td>Threat Hunting</td>
+<td>Búsqueda proactiva de señales de amenazas.</td>
+</tr>
+<tr class="even">
+<td>DFIR</td>
+<td>Forense digital y respuesta a incidentes.</td>
+</tr>
+</tbody>
+</table></div><p>Se recomienda trabajar con un enfoque Purple Team en todo el proceso. En un curso, o en una organización pequeña, una misma persona puede cumplir varios roles; en ese caso se deben documentar sus responsabilidades y, cuando se pueda, separar a quien ejecuta las pruebas de quien las verifica.</p></div></details><details class="sec" id="sec-4"><summary><span class="sec-title">4. Referentes técnicos y normativos</span></summary><div class="sec-body"><div class="table-wrap"><table>
+
+<thead>
+<tr class="header">
+<th>Referente</th>
+<th>Uso propuesto</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>NIST CSF 2.0</td>
+<td>Organización de funciones de gestión de riesgo.</td>
+</tr>
+<tr class="even">
+<td>NIST SP 800-115</td>
+<td>Orientación para evaluación técnica de seguridad.</td>
+</tr>
+<tr class="odd">
+<td>MITRE ATT&amp;CK</td>
+<td>Taxonomía de tácticas y técnicas adversarias.</td>
+</tr>
+<tr class="even">
+<td>OWASP Top 10</td>
+<td>Riesgos comunes en aplicaciones web.</td>
+</tr>
+<tr class="odd">
+<td>OWASP WSTG</td>
+<td>Procedimientos de pruebas de seguridad web.</td>
+</tr>
+<tr class="even">
+<td>ISO/IEC 27001</td>
+<td>Contexto de gestión de seguridad de la información.</td>
+</tr>
+<tr class="odd">
+<td>ISO/IEC 27005</td>
+<td>Orientación para análisis y tratamiento de riesgos.</td>
+</tr>
+<tr class="even">
+<td>OWASP API Security Top 10</td>
+<td>Riesgos de seguridad en APIs (D04).</td>
+</tr>
+<tr class="odd">
+<td>OWASP Top 10 para LLM</td>
+<td>Riesgos en aplicaciones que integran modelos de lenguaje (D08).</td>
+</tr>
+<tr class="even">
+<td>CVSS v4.0 (FIRST)</td>
+<td>Puntuación estandarizada de la severidad de vulnerabilidades.</td>
+</tr>
+<tr class="odd">
+<td>ISO/IEC 27037</td>
+<td>Identificación, recolección y preservación de evidencia digital.</td>
+</tr>
+<tr class="even">
+<td>NIST SP 800-61r3</td>
+<td>Respuesta a incidentes alineada con NIST CSF 2.0.</td>
+</tr>
+</tbody>
+</table></div><p>Para usar estos referentes de forma ordenada se necesita una matriz de correspondencia. En las secciones 4.1 y 4.2 se presenta por fase y por dominio, y en la sección 16.1 están las referencias completas.</p><h3 id="sec-4-1">4.1. Matriz de correspondencia por fase</h3><p>En esta tabla se relaciona cada fase de FORTIS con las funciones y categorías de NIST CSF 2.0, las etapas de NIST SP 800-115, el proceso de gestión del riesgo de ISO/IEC 27005:2022 y las cláusulas (Cl.) y controles del Anexo A de ISO/IEC 27001:2022.</p><div class="table-wrap"><table>
+
+<thead>
+<tr class="header">
+<th><strong>Fase</strong></th>
+<th><strong>NIST CSF 2.0</strong></th>
+<th><strong>NIST SP 800-115</strong></th>
+<th><strong>ISO/IEC 27005:2022</strong></th>
+<th><strong>ISO/IEC 27001:2022</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>01 Preparación</strong></td>
+<td>GV.OC Contexto organizacional<br/>
+GV.RR Roles, responsabilidades y autoridades<br/>
+ID.AM Gestión de activos</td>
+<td>Planificación de la evaluación (alcance, reglas de compromiso, logística)</td>
+<td>Establecimiento del contexto</td>
+<td>Cl. 4 Contexto de la organización<br/>
+Cl. 6.1 Acciones para tratar riesgos<br/>
+A.5.9 Inventario de activos</td>
+</tr>
+<tr class="even">
+<td><strong>02 Prevención</strong></td>
+<td>ID.RA Evaluación de riesgos<br/>
+PR.PS Seguridad de la plataforma<br/>
+PR.AA Identidad, autenticación y control de acceso</td>
+<td>Técnicas de revisión (documentación, registros, configuraciones)</td>
+<td>Identificación del riesgo</td>
+<td>Cl. 8.2 Evaluación de riesgos<br/>
+A.8.9 Gestión de la configuración</td>
+</tr>
+<tr class="odd">
+<td><strong>03 Identificación</strong></td>
+<td>ID.RA Evaluación de riesgos<br/>
+DE.CM Monitoreo continuo</td>
+<td>Identificación y análisis de objetivos; validación de vulnerabilidades</td>
+<td>Identificación del riesgo</td>
+<td>A.8.8 Gestión de vulnerabilidades técnicas<br/>
+A.8.29 Pruebas de seguridad en desarrollo y aceptación</td>
+</tr>
+<tr class="even">
+<td><strong>04 Análisis</strong></td>
+<td>ID.RA Evaluación de riesgos<br/>
+RS.AN Análisis de incidentes</td>
+<td>Actividades posteriores a la prueba: análisis de hallazgos e informe</td>
+<td>Análisis y valoración del riesgo</td>
+<td>Cl. 8.2 Evaluación de riesgos<br/>
+A.5.28 Recolección de evidencias</td>
+</tr>
+<tr class="odd">
+<td><strong>05 Mitigación</strong></td>
+<td>RS.MI Mitigación de incidentes<br/>
+Categorías PR aplicables al control</td>
+<td>Actividades posteriores a la prueba: recomendaciones de mitigación</td>
+<td>Tratamiento del riesgo</td>
+<td>Cl. 6.1.3 y 8.3 Tratamiento de riesgos</td>
+</tr>
+<tr class="even">
+<td><strong>06 Verificación</strong></td>
+<td>ID.IM Mejora<br/>
+GV.OV Supervisión</td>
+<td>Complemento propio de FORTIS: reejecución de casos comparables</td>
+<td>Seguimiento y revisión</td>
+<td>Cl. 9 Evaluación del desempeño<br/>
+Cl. 10 Mejora</td>
+</tr>
+</tbody>
+</table></div><h3 id="sec-4-2">4.2. Matriz de correspondencia por dominio</h3><p>En esta tabla se relaciona cada dominio de evaluación con técnicas de MITRE ATT&amp;CK (versión 20), guías de OWASP, categorías de NIST CSF 2.0 y otros referentes. Los nombres de las técnicas de ATT&amp;CK se dejaron en inglés, tal como aparecen en la fuente oficial.</p><div class="table-wrap"><table>
+
+<thead>
+<tr class="header">
+<th><strong>Dominio</strong></th>
+<th><strong>MITRE ATT&amp;CK</strong></th>
+<th><strong>OWASP</strong></th>
+<th><strong>NIST CSF 2.0</strong></th>
+<th><strong>Otros referentes</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>D01 Entornos y sistemas</strong></td>
+<td>No aplica (preparación del entorno de pruebas)</td>
+<td>No aplica</td>
+<td>PR.PS Seguridad de la plataforma<br/>
+ID.AM Gestión de activos</td>
+<td>ISO/IEC 27001: A.8.9</td>
+</tr>
+<tr class="even">
+<td><strong>D02 Reconocimiento y OSINT</strong></td>
+<td>TA0043 Reconnaissance: T1590 Gather Victim Network Information, T1593 Search Open Websites/Domains, T1595 Active Scanning</td>
+<td>WSTG: recopilación de información (WSTG-INFO)</td>
+<td>ID.AM Gestión de activos<br/>
+ID.RA Evaluación de riesgos</td>
+<td>NIST SP 800-115: identificación y análisis de objetivos</td>
+</tr>
+<tr class="odd">
+<td><strong>D03 Seguridad web</strong></td>
+<td>T1190 Exploit Public-Facing Application</td>
+<td>OWASP Top 10:2025 (A01 a A10); WSTG</td>
+<td>PR.PS Seguridad de la plataforma<br/>
+PR.DS Seguridad de los datos</td>
+<td>ISO/IEC 27001: A.8.29</td>
+</tr>
+<tr class="even">
+<td><strong>D04 Comunicaciones y APIs</strong></td>
+<td>T1190 Exploit Public-Facing Application</td>
+<td>API Security Top 10:2023 (API1 BOLA, API2 autenticación, API5 autorización por función)</td>
+<td>PR.AA Identidad, autenticación y control de acceso</td>
+<td>ISO/IEC 27001: A.8.8</td>
+</tr>
+<tr class="odd">
+<td><strong>D05 Factor humano</strong></td>
+<td>T1566 Phishing; T1598 Phishing for Information</td>
+<td>No aplica</td>
+<td>PR.AT Concienciación y formación</td>
+<td>ISO/IEC 27001: A.6.3</td>
+</tr>
+<tr class="even">
+<td><strong>D06 Forense digital</strong></td>
+<td>Apoya el análisis de técnicas observadas</td>
+<td>No aplica</td>
+<td>RS.AN Análisis de incidentes</td>
+<td>ISO/IEC 27037; ISO/IEC 27001: A.5.28</td>
+</tr>
+<tr class="odd">
+<td><strong>D07 Detección y respuesta</strong></td>
+<td>Técnicas emuladas y sus detecciones asociadas</td>
+<td>OWASP Top 10:2025 A09 (fallas en el registro, alerta y monitoreo)</td>
+<td>DE.CM Monitoreo continuo<br/>
+DE.AE Análisis de eventos adversos<br/>
+RS.MA Gestión de incidentes</td>
+<td>NIST SP 800-61r3; ISO/IEC 27001: A.8.15, A.8.16</td>
+</tr>
+<tr class="even">
+<td><strong>D08 Seguridad de IA</strong></td>
+<td>T1699 Direct Prompt Injection; T1698 Indirect Prompt Injection</td>
+<td>LLM Top 10:2026 (LLM01 Prompt Injection)</td>
+<td>PR.DS Seguridad de los datos<br/>
+DE.AE Análisis de eventos adversos</td>
+<td>No aplica</td>
+</tr>
+</tbody>
+</table></div></div></details><h2 class="part">Parte II. Diseño metodológico</h2><details class="sec" id="sec-5"><summary><span class="sec-title">5. Definición de FORTIS</span></summary><div class="sec-body"><h3 id="sec-5-1">5.1. Definición</h3><p>FORTIS es una propuesta de framework metodológico que reúne procedimientos ofensivos, defensivos y colaborativos para identificar, analizar, evaluar, mitigar y verificar riesgos de ciberseguridad, a partir de pruebas controladas, evidencias reproducibles y mejora continua. El nombre FORTIS viene del latín y significa "fuerte", porque el objetivo del marco es fortalecer la ciberseguridad de los sistemas que se evalúan.</p><h3 id="sec-5-2">5.2. Objetivo general</h3><p>Plantear una forma ordenada de evaluar y fortalecer los controles de ciberseguridad de un sistema de información, usando procedimientos técnicos autorizados y verificables.</p><h3 id="sec-5-3">5.3. Objetivos específicos</h3><p>Delimitar el alcance; establecer línea base; ejecutar pruebas; registrar y analizar hallazgos; priorizar tratamientos; repetir pruebas y documentar efectividad.</p><h3 id="sec-5-4">5.4. Alcance</h3><p>Se puede aplicar a entornos de laboratorio, aplicaciones web, APIs, servicios de red, archivos digitales, procesos humanos y aplicaciones con IA, según los permisos y las capacidades que se tengan.</p><h3 id="sec-5-5">5.5. Principios rectores</h3><p>Autorización expresa, proporcionalidad, mínimo impacto, confidencialidad, reproducibilidad, integridad de evidencias, trazabilidad y mejora continua.</p><h3 id="sec-5-6">5.6. Limitaciones</h3><p>El framework no garantiza que no existan vulnerabilidades; lo que se logra cubrir depende del alcance, las herramientas y los escenarios usados.</p></div></details><details class="sec" id="sec-6"><summary><span class="sec-title">6. Arquitectura metodológica</span></summary><div class="sec-body"><div class="table-wrap"><table>
+
+<thead>
+<tr class="header">
+<th>Fase</th>
+<th>Finalidad</th>
+<th>Producto</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>01 Preparación</td>
+<td>Definir objetivos, autorización, activos y reglas</td>
+<td>Plan de evaluación</td>
+</tr>
+<tr class="even">
+<td>02 Prevención</td>
+<td>Examinar controles y establecer línea base</td>
+<td>Diagnóstico inicial</td>
+</tr>
+<tr class="odd">
+<td>03 Identificación</td>
+<td>Ejecutar reconocimiento y pruebas controladas</td>
+<td>Hallazgos documentados</td>
+</tr>
+<tr class="even">
+<td>04 Análisis</td>
+<td>Evaluar evidencia, impacto y riesgo</td>
+<td>Matriz de riesgos</td>
+</tr>
+<tr class="odd">
+<td>05 Mitigación</td>
+<td>Aplicar medidas de tratamiento</td>
+<td>Plan de tratamiento ejecutado</td>
+</tr>
+<tr class="even">
+<td>06 Verificación</td>
+<td>Repetir pruebas y comparar resultados</td>
+<td>Informe de efectividad</td>
+</tr>
+</tbody>
+</table></div><p>En la Figura 1 se muestra la arquitectura metodológica de FORTIS. Los referentes técnicos y normativos guían un ciclo de seis fases, y cada fase entrega un producto. El enfoque Purple Team une las actividades ofensivas (Red Team) y defensivas (Blue Team) durante todo el ciclo. Los dominios, los instrumentos y los actores se usan según el alcance aprobado, y la gestión de evidencias, los indicadores y los principios sirven de base para todo el proceso.</p><p><a class="fig-link" href="docs/figuras/fig1_arquitectura.png" rel="noopener" target="_blank"><img alt="Arquitectura metodológica de FORTIS: referentes, ciclo de seis fases con retroalimentación, enfoque Purple Team, dominios, instrumentos, actores y base transversal." loading="lazy" src="docs/figuras/fig1_arquitectura.png"/></a></p><p class="caption"><strong>Figura 1.</strong> <em>Arquitectura metodológica de FORTIS.</em></p><p>La arquitectura es cíclica: lo que se encuentra en la verificación sirve para mejorar la preparación y la prevención del siguiente ciclo. Los procedimientos se pueden adaptar al dominio y al alcance aprobado.</p></div></details><details class="sec" id="sec-7"><summary><span class="sec-title">7. Especificación de las fases</span></summary><div class="sec-body"><h3 id="sec-7-1">7.1. Preparación</h3><p>Entradas: Solicitud, sistema y autorización.</p><p>Actividades: Definir alcance, activos, reglas de compromiso, responsables y entorno.</p><p>Salidas: Plan autorizado y criterios de suspensión.</p><p>Criterio de cierre: el responsable del sistema aprueba el plan de evaluación, y quedan documentados el alcance, los activos, las reglas de compromiso, los criterios de suspensión y los roles.</p><h3 id="sec-7-2">7.2. Prevención</h3><p>Entradas: Plan, arquitectura y controles existentes.</p><p>Actividades: Revisar configuraciones, controles, exposición y riesgos conocidos.</p><p>Salidas: Línea base documentada.</p><p>Criterio de cierre: queda registrada la línea base con la configuración y los controles de cada activo, la lista de riesgos conocidos y el diagnóstico revisado por el coordinador de evaluación.</p><h3 id="sec-7-3">7.3. Identificación</h3><p>Entradas: Escenarios y protocolos.</p><p>Actividades: Ejecutar pruebas controladas; registrar observaciones y hallazgos.</p><p>Salidas: Bitácora y evidencias.</p><p>Criterio de cierre: se ejecutaron los casos planeados (o se justificó por qué no) y cada hallazgo tiene su evidencia registrada en el Anexo C, con identificador, hash y responsable.</p><h3 id="sec-7-4">7.4. Análisis</h3><p>Entradas: Hallazgos y evidencias.</p><p>Actividades: Validar hallazgos, determinar impacto, estimar riesgo y priorizar.</p><p>Salidas: Matriz de evaluación.</p><p>Criterio de cierre: los hallazgos están validados, tienen severidad asignada con la rúbrica de la sección 13.1 y la matriz de hallazgos y riesgos (Anexo B) fue revisada y aprobada por el coordinador de evaluación.</p><h3 id="sec-7-5">7.5. Mitigación</h3><p>Entradas: Riesgos priorizados.</p><p>Actividades: Seleccionar responsables, medidas y fechas; implementar correcciones.</p><p>Salidas: Registro de cambios y controles.</p><p>Criterio de cierre: cada riesgo priorizado tiene medida, responsable y fecha en el plan de mitigación (Anexo D), los cambios quedaron registrados y los riesgos aceptados están justificados y aprobados por el responsable del sistema.</p><h3 id="sec-7-6">7.6. Verificación</h3><p>Entradas: Cambios y pruebas iniciales.</p><p>Actividades: Reejecutar casos comparables; comprobar correcciones y regresiones.</p><p>Salidas: Informe de verificación.</p><p>Criterio de cierre: se repitieron los casos de prueba, las correcciones se confirmaron (o se reabrieron), no quedan regresiones críticas y el informe de efectividad fue validado por el evaluador y aprobado por el responsable del sistema.</p></div></details><details class="sec" id="sec-8"><summary><span class="sec-title">8. Actores y responsabilidades</span></summary><div class="sec-body"><div class="table-wrap"><table>
+
+<thead>
+<tr class="header">
+<th>Actor</th>
+<th>Responsabilidad</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Responsable del sistema</td>
+<td>Autoriza alcance y facilita acceso legítimo.</td>
+</tr>
+<tr class="even">
+<td>Coordinador de evaluación</td>
+<td>Planifica, supervisa y aprueba procedimientos.</td>
+</tr>
+<tr class="odd">
+<td>Analista ofensivo</td>
+<td>Ejecuta pruebas autorizadas y registra resultados.</td>
+</tr>
+<tr class="even">
+<td>Analista defensivo</td>
+<td>Revisa controles, registros y acciones correctivas.</td>
+</tr>
+<tr class="odd">
+<td>Coordinador Purple Team</td>
+<td>Integra aprendizajes y verifica mejoras.</td>
+</tr>
+<tr class="even">
+<td>Custodio de evidencias</td>
+<td>Preserva integridad, acceso y trazabilidad.</td>
+</tr>
+<tr class="odd">
+<td>Evaluador</td>
+<td>Revisa criterios y consistencia de resultados.</td>
+</tr>
+</tbody>
+</table></div><p>La Figura 2 es un diagrama de secuencia UML que muestra cómo interactúan los actores durante las seis fases. Cada flecha indica qué actor inicia una acción y quién la recibe, y el número muestra el orden. El recuadro loop indica que el ciclo se repite cuando la verificación genera nuevos ajustes.</p><p><a class="fig-link" href="docs/figuras/fig2_uml.png" rel="noopener" target="_blank"><img alt="Diagrama de secuencia UML de la interacción de responsabilidades entre los siete actores de FORTIS en las fases 01 a 06." loading="lazy" src="docs/figuras/fig2_uml.png"/></a></p><p class="caption"><strong>Figura 2.</strong> <em>Diagrama de secuencia UML: interacción de responsabilidades entre los actores.</em></p><p><strong>Lectura del diagrama.</strong> El Coordinador de evaluación es quien planea y aprueba. El Responsable del sistema autoriza al inicio, hace las correcciones y recibe el informe final. Los analistas ofensivo y defensivo trabajan coordinados por el Coordinador Purple Team. El Custodio de evidencias recibe y guarda lo que se genera en cada fase. Por último, el Evaluador revisa los resultados antes del cierre sin haber participado en la ejecución, para que quien hace las pruebas no sea el mismo que las verifica.</p></div></details><h2 class="part">Parte III. Aplicación técnica</h2><details class="sec" id="sec-9"><summary><span class="sec-title">9. Dominios de evaluación</span></summary><div class="sec-body"><div class="table-wrap"><table>
+
+<thead>
+<tr class="header">
+<th>Código</th>
+<th>Dominio</th>
+<th>Propósito</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>D01</td>
+<td>Entornos y sistemas</td>
+<td>Preparación de herramientas, comandos y permisos.</td>
+</tr>
+<tr class="even">
+<td>D02</td>
+<td>Reconocimiento y OSINT</td>
+<td>Exposición pública y relaciones de infraestructura.</td>
+</tr>
+<tr class="odd">
+<td>D03</td>
+<td>Seguridad web</td>
+<td>Análisis de aplicaciones y recursos expuestos.</td>
+</tr>
+<tr class="even">
+<td>D04</td>
+<td>Comunicaciones y APIs</td>
+<td>Solicitudes, autenticación y controles de acceso.</td>
+</tr>
+<tr class="odd">
+<td>D05</td>
+<td>Factor humano</td>
+<td>Ingeniería social y seguridad organizacional.</td>
+</tr>
+<tr class="even">
+<td>D06</td>
+<td>Forense digital</td>
+<td>Inspección y preservación de evidencias.</td>
+</tr>
+<tr class="odd">
+<td>D07</td>
+<td>Detección y respuesta</td>
+<td>Alertas, registros y controles defensivos.</td>
+</tr>
+<tr class="even">
+<td>D08</td>
+<td>Seguridad de IA</td>
+<td>Riesgos de prompt injection en LLM.</td>
+</tr>
+</tbody>
+</table></div></div></details><details class="sec" id="sec-10"><summary><span class="sec-title">10. Catálogo de laboratorios</span></summary><div class="sec-body"><div class="table-wrap"><table>
+
+<thead>
+<tr class="header">
+<th>ID</th>
+<th>Laboratorio / documento base</th>
+<th>Dominio</th>
+<th>Enfoque</th>
+<th>Estado</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><a href="https://github.com/Edward-avila-o/mi-proyecto/tree/main/laboratorios/lab-01-shell" rel="noopener" target="_blank">FC-LAB-001</a></td>
+<td>Comandos Shell y Kali Linux</td>
+<td>D01</td>
+<td>Transversal</td>
+<td>Abordado</td>
+</tr>
+<tr class="even">
+<td><a href="https://github.com/Edward-avila-o/mi-proyecto/tree/main/laboratorios/lab-02-dns" rel="noopener" target="_blank">FC-LAB-002</a></td>
+<td>DNS Footprinting con nslookup y dig</td>
+<td>D02</td>
+<td>Ofensivo controlado</td>
+<td>Abordado</td>
+</tr>
+<tr class="odd">
+<td><a href="https://github.com/Edward-avila-o/mi-proyecto/tree/main/laboratorios/lab-03-httrack" rel="noopener" target="_blank">FC-LAB-003</a></td>
+<td>Clonación controlada HTTrack</td>
+<td>D03</td>
+<td>Ofensivo/defensivo</td>
+<td>Abordado</td>
+</tr>
+<tr class="even">
+<td><a href="https://github.com/Edward-avila-o/mi-proyecto/tree/main/laboratorios/lab-04-esteganografia" rel="noopener" target="_blank">FC-LAB-004</a></td>
+<td>Esteganografía con Steghide: partes 1–3</td>
+<td>D06</td>
+<td>Forense y colaborativo</td>
+<td>Abordado</td>
+</tr>
+<tr class="odd">
+<td><a href="https://github.com/Edward-avila-o/mi-proyecto/tree/main/laboratorios/lab-05-ingenieria-social" rel="noopener" target="_blank">FC-LAB-005</a></td>
+<td>Ingeniería social: principios</td>
+<td>D05</td>
+<td>Factor humano</td>
+<td>Abordado</td>
+</tr>
+<tr class="even">
+<td><a href="https://github.com/Edward-avila-o/mi-proyecto/tree/main/laboratorios/lab-06-maltego" rel="noopener" target="_blank">FC-LAB-006</a></td>
+<td>Maltego: instalación y aplicación</td>
+<td>D02</td>
+<td>OSINT</td>
+<td>Abordado</td>
+</tr>
+<tr class="odd">
+<td><a href="https://github.com/Edward-avila-o/mi-proyecto/tree/main/laboratorios/lab-07-burp" rel="noopener" target="_blank">FC-LAB-007</a></td>
+<td>Burp Suite</td>
+<td>D03/D04</td>
+<td>Pruebas web</td>
+<td>Abordado</td>
+</tr>
+<tr class="even">
+<td><a href="https://github.com/Edward-avila-o/mi-proyecto/tree/main/laboratorios/lab-08-prompt-injection" rel="noopener" target="_blank">FC-LAB-008</a></td>
+<td>Prompt injection en sistemas basados en modelos de lenguaje</td>
+<td>D08</td>
+<td>Seguridad de IA</td>
+<td>Abordado</td>
+</tr>
+<tr class="odd">
+<td><a href="https://github.com/Edward-avila-o/mi-proyecto/tree/main/laboratorios/lab-09-dvwa" rel="noopener" target="_blank">FC-LAB-009</a></td>
+<td>Vulnerabilidades web en DVWA: fuerza bruta, SQL injection, command injection y XSS</td>
+<td>D03</td>
+<td>Ofensivo controlado (Red Team)</td>
+<td>Abordado</td>
+</tr>
+<tr class="even">
+<td><a href="https://github.com/Edward-avila-o/mi-proyecto/tree/main/laboratorios/lab-10-dvwa-explotacion" rel="noopener" target="_blank">FC-LAB-010</a></td>
+<td>Explotación en DVWA: carga de archivos, inclusión de archivos y robo de sesión con XSS</td>
+<td>D03</td>
+<td>Ofensivo controlado (Red Team)</td>
+<td>Abordado</td>
+</tr>
+</tbody>
+</table></div><p>Los laboratorios FC-LAB-001 a FC-LAB-010 son los diez laboratorios realizados en el curso, y sus documentos están en la carpeta laboratorios/ del repositorio (sección 11). Entre todos cubren los dominios D01 a D06 y D08. El dominio D07 (detección y respuesta) todavía no tiene un laboratorio y queda como trabajo futuro. La relación de cada laboratorio con un dominio y un enfoque es una propuesta propia, ya que no todas las guías de los laboratorios la indican.</p><h3 id="sec-10-1">10.1. Ficha estandarizada de laboratorio</h3><div class="table-wrap"><table>
+
+<thead>
+<tr class="header">
+<th>Campo</th>
+<th>Descripción / dato requerido</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Identificador</td>
+<td>FC-LAB-XXX</td>
+</tr>
+<tr class="even">
+<td>Nombre y versión</td>
+<td>Título, fecha y control de cambios</td>
+</tr>
+<tr class="odd">
+<td>Objetivo</td>
+<td>Capacidad que se desea evaluar</td>
+</tr>
+<tr class="even">
+<td>Dominio y fase</td>
+<td>Código de dominio y fase aplicable</td>
+</tr>
+<tr class="odd">
+<td>Roles</td>
+<td>Ejecutor, defensor, revisor</td>
+</tr>
+<tr class="even">
+<td>Entorno y autorización</td>
+<td>Sistema, alcance y permisos</td>
+</tr>
+<tr class="odd">
+<td>Entradas</td>
+<td>Datos sintéticos y configuraciones</td>
+</tr>
+<tr class="even">
+<td>Procedimiento</td>
+<td>Pasos reproducibles</td>
+</tr>
+<tr class="odd">
+<td>Evidencias</td>
+<td>Archivos, capturas, hashes, registros</td>
+</tr>
+<tr class="even">
+<td>Criterio de aceptación</td>
+<td>Condición observable y verificable</td>
+</tr>
+<tr class="odd">
+<td>Análisis defensivo</td>
+<td>Controles y recomendaciones</td>
+</tr>
+<tr class="even">
+<td>Resultado</td>
+<td>Informe y matriz de evaluación</td>
+</tr>
+</tbody>
+</table></div></div></details><details class="sec" id="sec-11"><summary><span class="sec-title">11. Repositorio técnico y gestión de artefactos</span></summary><div class="sec-body"><p>Se propone un solo repositorio en GitHub con carpetas por función. Las ramas se usan para cambios temporales y revisión, y los laboratorios quedan como carpetas fijas en main.</p><p>FORTIS-framework/<br/>
+README.md<br/>
+docs/{framework,arquitectura,metodologia,glosario}.md<br/>
+framework/{fases,protocolos,matrices}/<br/>
+laboratorios/{lab-01-shell,lab-02-dns,lab-03-httrack,lab-04-esteganografia,lab-05-ingenieria-social,lab-06-maltego,lab-07-burp,<br/>
+lab-08-prompt-injection,lab-09-dvwa,lab-10-dvwa-explotacion}/<br/>
+scripts/ plantillas/ casos-estudio/ resultados/</p><h3 id="sec-11-1">11.1. Ramas y versiones</h3><p>La rama main tiene la versión estable, y ramas como feature/lab-08 o docs/glosario se usan para trabajar. Los cambios se revisan con Pull Requests y las versiones estables se marcan con etiquetas como v0.1.0, v0.2.0 y v1.0.0.</p><h3 id="sec-11-2">11.2. Seguridad de publicación</h3><p>No subir credenciales, tokens, datos personales, información de terceros, capturas sensibles ni artefactos que permitan afectar objetivos reales. Usar escenarios autorizados, archivos sintéticos y resultados anonimizados.</p><h3 id="sec-11-3">11.3. Trazabilidad</h3><p>Cada laboratorio debe vincularse con:</p><ul>
+<li><p>Fase</p></li>
+<li><p>Dominio</p></li>
+<li><p>Caso de prueba</p></li>
+<li><p>Hallazgo</p></li>
+<li><p>Control</p></li>
+<li><p>Resultado de verificación</p></li>
+</ul></div></details><h2 class="part">Parte IV. Evaluación y validación</h2><details class="sec" id="sec-12"><summary><span class="sec-title">12. Modelo de evaluación</span></summary><div class="sec-body"><p>Cada prueba tiene identificador, objetivo, condiciones, entrada, resultado esperado, resultado observado, evidencia, impacto, severidad, responsable y recomendación. Hay que tener en cuenta que ejecutar bien una prueba no significa que el sistema no tenga vulnerabilidades. El detalle de cada caso está en el Anexo A y los hallazgos en el Anexo B.</p><div class="table-wrap"><table>
+
+<thead>
+<tr class="header">
+<th>ID</th>
+<th>Prueba</th>
+<th>Resultado esperado</th>
+<th>Resultado obtenido</th>
+<th>Severidad</th>
+<th>Estado</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>P01</td>
+<td>Reconocimiento DNS</td>
+<td>Información documentada</td>
+<td>IP de scanme.nmap.org y servidores NS y MX de nmap.org identificados (FC-LAB-002)</td>
+<td>Informativa</td>
+<td>Ejecutada</td>
+</tr>
+<tr class="even">
+<td>P02</td>
+<td>Exposición web</td>
+<td>Recursos identificados</td>
+<td>Solo se recuperaron archivos CSS y caché; sin datos sensibles ni endpoints (FC-LAB-003)</td>
+<td>Informativa</td>
+<td>Ejecutada</td>
+</tr>
+<tr class="odd">
+<td>P03</td>
+<td>Análisis forense</td>
+<td>Evidencia íntegra y analizada</td>
+<td>Mensajes ocultos extraídos con Steghide; hashes SHA-256 coinciden (FC-LAB-004)</td>
+<td>Informativa</td>
+<td>Ejecutada</td>
+</tr>
+</tbody>
+</table></div></div></details><details class="sec" id="sec-13"><summary><span class="sec-title">13. Indicadores y métricas</span></summary><div class="sec-body"><div class="table-wrap"><table>
+
+<thead>
+<tr class="header">
+<th>Indicador</th>
+<th>Definición operacional propuesta</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Cobertura de pruebas</td>
+<td>Casos ejecutados / casos planificados × 100.</td>
+</tr>
+<tr class="even">
+<td>Hallazgos por severidad</td>
+<td>Conteo por nivel bajo, medio, alto y crítico, según rúbrica documentada.</td>
+</tr>
+<tr class="odd">
+<td>Correcciones verificadas</td>
+<td>Hallazgos corregidos y verificados / hallazgos tratados × 100.</td>
+</tr>
+<tr class="even">
+<td>Tasa de detección</td>
+<td>Eventos de prueba detectados / eventos de prueba observables × 100.</td>
+</tr>
+<tr class="odd">
+<td>Tiempo de respuesta</td>
+<td>Diferencia entre evento y respuesta, bajo reloj y criterios definidos.</td>
+</tr>
+<tr class="even">
+<td>Reproducibilidad</td>
+<td>Coincidencia de resultados en repeticiones con condiciones equivalentes.</td>
+</tr>
+</tbody>
+</table></div><p>Para usar estos indicadores hay que definir la fuente, la unidad, el periodo de tiempo, los criterios de exclusión y los umbrales. La severidad se mide con la rúbrica de la sección 13.1, que debe estar definida antes de hacer las pruebas.</p><h3 id="sec-13-1">13.1. Rúbrica de severidad</h3><p>La severidad de cada hallazgo se asigna con esta rúbrica antes de reportarlo. Si es una vulnerabilidad técnica se usa el puntaje base de CVSS v4.0. Si el hallazgo tiene que ver con procesos, configuración de la organización o factor humano, donde CVSS no aplica, se usa la matriz de probabilidad e impacto. Si se pueden usar los dos criterios y dan niveles diferentes, se toma el más alto y se explica en el Anexo B. Cuando algo no representa riesgo (CVSS 0.0) se registra como informativo y no se cuenta como hallazgo.</p><div class="table-wrap"><table>
+
+<thead>
+<tr class="header">
+<th><strong>Nivel</strong></th>
+<th><strong>Puntaje CVSS v4.0</strong></th>
+<th><strong>Criterio de impacto</strong></th>
+<th><strong>Ejemplo orientativo</strong></th>
+<th><strong>Plazo de tratamiento sugerido</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Crítico</strong></td>
+<td>9.0 – 10.0</td>
+<td>Compromiso total de la confidencialidad, integridad o disponibilidad de activos críticos; explotable sin autenticación ni interacción del usuario.</td>
+<td>Ejecución remota de código en un servidor expuesto.</td>
+<td>Contención inmediata; corrección en máximo 7 días.</td>
+</tr>
+<tr class="even">
+<td><strong>Alto</strong></td>
+<td>7.0 – 8.9</td>
+<td>Acceso no autorizado a información sensible o a funciones privilegiadas con condiciones mínimas.</td>
+<td>Acceso a datos de otros usuarios por fallas de autorización en una API.</td>
+<td>Máximo 30 días.</td>
+</tr>
+<tr class="odd">
+<td><strong>Medio</strong></td>
+<td>4.0 – 6.9</td>
+<td>Impacto limitado, o que requiere condiciones específicas (autenticación previa, interacción del usuario).</td>
+<td>Listado de directorios habilitado con archivos internos no sensibles.</td>
+<td>Máximo 90 días.</td>
+</tr>
+<tr class="even">
+<td><strong>Bajo</strong></td>
+<td>0.1 – 3.9</td>
+<td>Impacto mínimo; aporta información útil para un atacante sin afectar directamente los activos.</td>
+<td>Mensajes de error que revelan la versión del software.</td>
+<td>Próximo ciclo de mejora.</td>
+</tr>
+</tbody>
+</table></div><p><em>Los plazos son una propuesta y se pueden ajustar según la política de la organización o lo que se acuerde con el responsable del sistema.</em></p><p><strong>Matriz de probabilidad e impacto</strong></p><div class="table-wrap"><table>
+
+<thead>
+<tr class="header">
+<th><strong>Probabilidad / Impacto</strong></th>
+<th><strong>Impacto bajo</strong></th>
+<th><strong>Impacto medio</strong></th>
+<th><strong>Impacto alto</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Alta</strong></td>
+<td>Medio</td>
+<td>Alto</td>
+<td>Crítico</td>
+</tr>
+<tr class="even">
+<td><strong>Media</strong></td>
+<td>Bajo</td>
+<td>Medio</td>
+<td>Alto</td>
+</tr>
+<tr class="odd">
+<td><strong>Baja</strong></td>
+<td>Bajo</td>
+<td>Bajo</td>
+<td>Medio</td>
+</tr>
+</tbody>
+</table></div><div class="table-wrap"><table>
+
+<thead>
+<tr class="header">
+<th><strong>Término</strong></th>
+<th><strong>Definición operacional</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Probabilidad alta</strong></td>
+<td>Se puede explotar con herramientas públicas y sin conocimientos especializados.</td>
+</tr>
+<tr class="even">
+<td><strong>Probabilidad media</strong></td>
+<td>Requiere condiciones particulares o conocimientos específicos.</td>
+</tr>
+<tr class="odd">
+<td><strong>Probabilidad baja</strong></td>
+<td>Requiere acceso privilegiado o condiciones poco frecuentes.</td>
+</tr>
+<tr class="even">
+<td><strong>Impacto alto</strong></td>
+<td>Afecta activos críticos, datos personales o información sensible.</td>
+</tr>
+<tr class="odd">
+<td><strong>Impacto medio</strong></td>
+<td>Afecta activos de apoyo o información interna no sensible.</td>
+</tr>
+<tr class="even">
+<td><strong>Impacto bajo</strong></td>
+<td>No afecta directamente la información ni la operación.</td>
+</tr>
+</tbody>
+</table></div></div></details><details class="sec" id="sec-14"><summary><span class="sec-title">14. Validación y mejora continua</span></summary><div class="sec-body"><h3 id="sec-14-1">14.1. Diseño de validación</h3><p>Establecer preguntas de evaluación, criterios y limitaciones.</p><h3 id="sec-14-2">14.2. Selección de escenarios</h3><p>Elegir sistemas propios o expresamente autorizados.</p><h3 id="sec-14-3">14.3. Línea base</h3><p>Aplicar pruebas y medir condiciones iniciales.</p><h3 id="sec-14-4">14.4. Tratamiento</h3><p>Implementar controles y documentar cambios.</p><h3 id="sec-14-5">14.5. Reevaluación</h3><p>Repetir pruebas equivalentes y analizar regresiones.</p><h3 id="sec-14-6">14.6. Análisis</h3><p>Interpretar cobertura, resultados, reproducibilidad y amenazas a la validez.</p><h3 id="sec-14-7">14.7. Retroalimentación</h3><p>Actualizar protocolos, fichas y criterios metodológicos.</p></div></details><h2 class="part">Parte V. Documentación y transferencia</h2><details class="sec" id="sec-15"><summary><span class="sec-title">15. Glosario técnico y metodológico</span></summary><div class="sec-body"><div class="table-wrap"><table>
+
+<thead>
+<tr class="header">
+<th>Término</th>
+<th>Definición</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Red Team</td>
+<td>Equipo o función que emula comportamientos adversarios bajo autorización.</td>
+</tr>
+<tr class="even">
+<td>Blue Team</td>
+<td>Función encargada de protección, detección y respuesta.</td>
+</tr>
+<tr class="odd">
+<td>Purple Team</td>
+<td>Colaboración sistemática entre actividades ofensivas y defensivas.</td>
+</tr>
+<tr class="even">
+<td>SOC</td>
+<td>Centro o función de operaciones de seguridad y monitoreo.</td>
+</tr>
+<tr class="odd">
+<td>CSIRT</td>
+<td>Equipo de respuesta a incidentes de seguridad informática.</td>
+</tr>
+<tr class="even">
+<td>Pentesting</td>
+<td>Prueba técnica autorizada para evaluar vulnerabilidades.</td>
+</tr>
+<tr class="odd">
+<td>OSINT</td>
+<td>Obtención y análisis de información de fuentes abiertas.</td>
+</tr>
+<tr class="even">
+<td>Footprinting</td>
+<td>Reconocimiento inicial de información y superficie de exposición.</td>
+</tr>
+<tr class="odd">
+<td>Superficie de ataque</td>
+<td>Conjunto de puntos potencialmente explotables de un sistema.</td>
+</tr>
+<tr class="even">
+<td>Vulnerabilidad</td>
+<td>Debilidad que puede ser aprovechada por una amenaza.</td>
+</tr>
+<tr class="odd">
+<td>Amenaza</td>
+<td>Circunstancia o actor con potencial de causar daño.</td>
+</tr>
+<tr class="even">
+<td>Riesgo</td>
+<td>Efecto de incertidumbre asociado con escenarios y consecuencias.</td>
+</tr>
+<tr class="odd">
+<td>SIEM</td>
+<td>Gestión y correlación de información y eventos de seguridad.</td>
+</tr>
+<tr class="even">
+<td>EDR</td>
+<td>Detección y respuesta en equipos finales.</td>
+</tr>
+<tr class="odd">
+<td>IOC</td>
+<td>Indicador observable de posible compromiso.</td>
+</tr>
+<tr class="even">
+<td>TTP</td>
+<td>Tácticas, técnicas y procedimientos de actores adversarios.</td>
+</tr>
+<tr class="odd">
+<td>MITRE ATT&amp;CK</td>
+<td>Base de conocimiento de técnicas y tácticas adversarias.</td>
+</tr>
+<tr class="even">
+<td>OWASP</td>
+<td>Comunidad y recursos de seguridad de aplicaciones.</td>
+</tr>
+<tr class="odd">
+<td>Hardening</td>
+<td>Fortalecimiento de configuraciones y controles.</td>
+</tr>
+<tr class="even">
+<td>Cadena de custodia</td>
+<td>Registro de obtención, manejo y transferencia de evidencia.</td>
+</tr>
+<tr class="odd">
+<td>Evidencia digital</td>
+<td>Información digital relevante para una evaluación o investigación.</td>
+</tr>
+<tr class="even">
+<td>DFIR</td>
+<td>Forense digital y respuesta a incidentes.</td>
+</tr>
+<tr class="odd">
+<td>Prompt injection</td>
+<td>Instrucciones maliciosas destinadas a alterar el comportamiento previsto de un sistema LLM.</td>
+</tr>
+<tr class="even">
+<td>Fase</td>
+<td>Conjunto delimitado de actividades y entregables.</td>
+</tr>
+<tr class="odd">
+<td>Instrumento</td>
+<td>Medio estructurado para recolectar o evaluar evidencias.</td>
+</tr>
+<tr class="even">
+<td>Hallazgo</td>
+<td>Resultado documentado y sustentado de una prueba.</td>
+</tr>
+<tr class="odd">
+<td>Mitigación</td>
+<td>Acción destinada a reducir un riesgo.</td>
+</tr>
+<tr class="even">
+<td>Validación</td>
+<td>Proceso de comprobación del funcionamiento y utilidad del marco.</td>
+</tr>
+<tr class="odd">
+<td>CVSS</td>
+<td>Sistema estándar para puntuar la severidad de una vulnerabilidad de 0.0 a 10.0.</td>
+</tr>
+<tr class="even">
+<td>Hash (SHA-256)</td>
+<td>Huella digital de un archivo; si el archivo cambia, el hash cambia.</td>
+</tr>
+<tr class="odd">
+<td>Línea base</td>
+<td>Estado inicial documentado de la configuración y los controles, usado para comparar.</td>
+</tr>
+<tr class="even">
+<td>Reglas de compromiso</td>
+<td>Acuerdo previo que define qué se puede probar, cómo, cuándo y con qué límites.</td>
+</tr>
+<tr class="odd">
+<td>Esteganografía</td>
+<td>Técnica para ocultar información dentro de otro archivo, como una imagen.</td>
+</tr>
+<tr class="even">
+<td>DVWA</td>
+<td>Aplicación web vulnerable a propósito, usada para practicar pruebas en un entorno controlado.</td>
+</tr>
+<tr class="odd">
+<td>UML</td>
+<td>Lenguaje gráfico estándar para representar actores, procesos e interacciones.</td>
+</tr>
+<tr class="even">
+<td>Pull Request</td>
+<td>Solicitud en GitHub para revisar y aprobar cambios antes de unirlos a la rama principal.</td>
+</tr>
+</tbody>
+</table></div></div></details><details class="sec" id="sec-16"><summary><span class="sec-title">16. Referencias y anexos</span></summary><div class="sec-body"><h3 id="sec-16-1">16.1. Referencias bibliográficas</h3><p>Las referencias están en formato APA 7. Las normas ISO/IEC se citan con su título oficial en inglés.</p><p class="ref">Forum of Incident Response and Security Teams. (2023). <em>Common Vulnerability Scoring System version 4.0: Specification document</em>. <a href="https://www.first.org/cvss/specification-document" rel="noopener" target="_blank">https://www.first.org/cvss/specification-document</a></p><p class="ref">International Organization for Standardization. (2012). <em>Information technology — Security techniques — Guidelines for identification, collection, acquisition and preservation of digital evidence</em> (Norma ISO/IEC n.º 27037:2012). <a href="https://www.iso.org/standard/44381.html" rel="noopener" target="_blank">https://www.iso.org/standard/44381.html</a></p><p class="ref">International Organization for Standardization. (2022a). <em>Information security, cybersecurity and privacy protection — Guidance on managing information security risks</em> (Norma ISO/IEC n.º 27005:2022). <a href="https://www.iso.org/standard/80585.html" rel="noopener" target="_blank">https://www.iso.org/standard/80585.html</a></p><p class="ref">International Organization for Standardization. (2022b). <em>Information security, cybersecurity and privacy protection — Information security management systems — Requirements</em> (Norma ISO/IEC n.º 27001:2022). <a href="https://www.iso.org/standard/27001" rel="noopener" target="_blank">https://www.iso.org/standard/27001</a></p><p class="ref">MITRE Corporation. (2026). <em>MITRE ATT&amp;CK</em> (versión 20) [Base de conocimiento]. Recuperado el 7 de noviembre de 2026, de <a href="https://attack.mitre.org/" rel="noopener" target="_blank">https://attack.mitre.org/</a></p><p class="ref">National Institute of Standards and Technology. (2024). <em>The NIST Cybersecurity Framework (CSF) 2.0</em> (NIST CSWP 29). <a href="https://doi.org/10.6028/NIST.CSWP.29" rel="noopener" target="_blank">https://doi.org/10.6028/NIST.CSWP.29</a></p><p class="ref">Nelson, A., Rekhi, S., Souppaya, M., &amp; Scarfone, K. (2025). <em>Incident response recommendations and considerations for cybersecurity risk management: A CSF 2.0 community profile</em> (NIST SP 800-61r3). National Institute of Standards and Technology. <a href="https://doi.org/10.6028/NIST.SP.800-61r3" rel="noopener" target="_blank">https://doi.org/10.6028/NIST.SP.800-61r3</a></p><p class="ref">OWASP Foundation. (2020). <em>OWASP Web Security Testing Guide</em> (versión 4.2). <a href="https://owasp.org/www-project-web-security-testing-guide/" rel="noopener" target="_blank">https://owasp.org/www-project-web-security-testing-guide/</a></p><p class="ref">OWASP Foundation. (2023). <em>OWASP API Security Top 10 – 2023</em>. <a href="https://owasp.org/API-Security/" rel="noopener" target="_blank">https://owasp.org/API-Security/</a></p><p class="ref">OWASP Foundation. (2025). <em>OWASP Top 10:2025</em>. <a href="https://owasp.org/Top10/2025/" rel="noopener" target="_blank">https://owasp.org/Top10/2025/</a></p><p class="ref">OWASP GenAI Security Project. (2026). <em>OWASP GenAI LLM Top 10 2026</em>. <a href="https://genai.owasp.org/resource/owasp-genai-llm-top-10-2026/" rel="noopener" target="_blank">https://genai.owasp.org/resource/owasp-genai-llm-top-10-2026/</a></p><p class="ref">Scarfone, K., Souppaya, M., Cody, A., &amp; Orebaugh, A. (2008). <em>Technical guide to information security testing and assessment</em> (NIST SP 800-115). National Institute of Standards and Technology. <a href="https://doi.org/10.6028/NIST.SP.800-115" rel="noopener" target="_blank">https://doi.org/10.6028/NIST.SP.800-115</a></p><h3 id="sec-16-2">16.2. Anexos</h3><p>Los anexos presentan los casos de prueba ejecutados, los hallazgos, las evidencias y el tratamiento de riesgos de esta primera aplicación del framework, a partir de los laboratorios del curso.</p><div class="table-wrap"><table>
+
+<thead>
+<tr class="header">
+<th>Anexo</th>
+<th>Artefacto</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>A</td>
+<td>Matriz de casos de prueba</td>
+</tr>
+<tr class="even">
+<td>B</td>
+<td>Matriz de hallazgos y riesgos</td>
+</tr>
+<tr class="odd">
+<td>C</td>
+<td>Registro de evidencias</td>
+</tr>
+<tr class="even">
+<td>D</td>
+<td>Plan de mitigación</td>
+</tr>
+</tbody>
+</table></div><h3 id="sec-16-3">Anexo A. Matriz de casos de prueba</h3><p>Aquí se registran los casos de prueba P01 a P03 de la sección 12 y su resultado.</p><div class="table-wrap"><table>
+
+<thead>
+<tr class="header">
+<th><strong>ID</strong></th>
+<th><strong>Laboratorio y dominio</strong></th>
+<th><strong>Fase</strong></th>
+<th><strong>Objetivo del caso</strong></th>
+<th><strong>Resultado esperado</strong></th>
+<th><strong>Resultado obtenido</strong></th>
+<th><strong>Evidencia</strong></th>
+<th><strong>Estado</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>P01</strong></td>
+<td>FC-LAB-002 · D02</td>
+<td>03 Identificación</td>
+<td>Identificar los registros DNS públicos del dominio autorizado</td>
+<td>Registros A, MX, NS y TXT documentados</td>
+<td>IP, servidores NS y MX identificados</td>
+<td>EV-001</td>
+<td>Ejecutada</td>
+</tr>
+<tr class="even">
+<td><strong>P02</strong></td>
+<td>FC-LAB-003 · D03</td>
+<td>03 Identificación</td>
+<td>Identificar recursos expuestos en la aplicación web del laboratorio</td>
+<td>Rutas y recursos expuestos identificados</td>
+<td>Solo CSS y caché recuperados; sin datos sensibles</td>
+<td>EV-002</td>
+<td>Ejecutada</td>
+</tr>
+<tr class="odd">
+<td><strong>P03</strong></td>
+<td>FC-LAB-004 · D06</td>
+<td>03 Identificación y 04 Análisis</td>
+<td>Detectar y extraer información oculta en un archivo de prueba sin alterar el original</td>
+<td>Evidencia íntegra (hash verificado) y analizada</td>
+<td>Mensajes extraídos; hashes SHA-256 coinciden</td>
+<td>EV-003</td>
+<td>Ejecutada</td>
+</tr>
+</tbody>
+</table></div><h3 id="sec-16-4">Anexo B. Matriz de hallazgos y riesgos</h3><p>En los casos P01 a P03 no se encontraron hallazgos con riesgo: los tres resultados fueron informativos según la rúbrica de la sección 13.1. Cuando se identifiquen hallazgos, se registrarán con su descripción, activo afectado, probabilidad, impacto, severidad, control relacionado y estado.</p><h3 id="sec-16-5">Anexo C. Registro de evidencias</h3><p>Cada evidencia tiene un identificador (EV-001, EV-002 y EV-003) y se relaciona con su caso de prueba. En los laboratorios se calculó el hash SHA-256 de los archivos para comprobar que no fueran modificados.</p><div class="table-wrap"><table>
+
+<thead>
+<tr class="header">
+<th><strong>ID</strong></th>
+<th><strong>Caso</strong></th>
+<th><strong>Evidencia</strong></th>
+<th><strong>Informe</strong></th>
+<th><strong>Ubicación en el repositorio</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>EV-001</strong></td>
+<td>P01</td>
+<td>Capturas de las consultas con nslookup, dig y whois</td>
+<td>Lab02_DNS_Footprinting.docx</td>
+<td>laboratorios/lab-02-dns/</td>
+</tr>
+<tr class="even">
+<td><strong>EV-002</strong></td>
+<td>P02</td>
+<td>Capturas del sitio clonado con HTTrack y respuestas del análisis</td>
+<td>Lab03_HTTrack_p1.docx y Lab03_HTTrack_p2.pdf</td>
+<td>laboratorios/lab-03-httrack/</td>
+</tr>
+<tr class="odd">
+<td><strong>EV-003</strong></td>
+<td>P03</td>
+<td>Capturas de Steghide y comparación de hashes SHA-256</td>
+<td>Lab04_Steghide_Parte1 a Parte3</td>
+<td>laboratorios/lab-04-esteganografia/</td>
+</tr>
+</tbody>
+</table></div><p>Las capturas completas de cada evidencia están en el informe del laboratorio correspondiente, dentro de la carpeta laboratorios/ del repositorio.</p><h3 id="sec-16-6">Anexo D. Plan de mitigación</h3><p>Como no hubo hallazgos con riesgo, en esta aplicación no fue necesario definir medidas de tratamiento. Si más adelante aparecen hallazgos, el tratamiento se escogerá entre las opciones de ISO/IEC 27005: modificación (aplicar controles), retención (aceptar el riesgo con una justificación), evitación (eliminar la actividad que genera el riesgo) y compartición (pasarlo a un tercero), con responsable, fecha y criterio de verificación.</p></div></details>
+  </main>
+</div>
+<footer><div>FORTIS. Trabajo de Edward Fernando Ávila Ojeda, Universidad Santo Tomás, seccional Tunja. Los laboratorios se realizaron en entornos de práctica o autorizados.</div></footer>
+<script>
+(function () {
+  var secs = Array.prototype.slice.call(document.querySelectorAll('details.sec'));
+  function openFromHash() {
+    var id = decodeURIComponent(location.hash.slice(1));
+    if (!id) return;
+    var el = document.getElementById(id);
+    if (!el) return;
+    var d = el.tagName === 'DETAILS' ? el : el.closest('details.sec');
+    if (d && !d.open) d.open = true;
+    var m = document.querySelector('details.mobile-toc');
+    if (m) m.open = false;
+    setTimeout(function () { el.scrollIntoView(); }, 0);
+  }
+  window.addEventListener('hashchange', openFromHash);
+  openFromHash();
+  document.getElementById('open-all').addEventListener('click', function () { secs.forEach(function (d) { d.open = true; }); });
+  document.getElementById('close-all').addEventListener('click', function () { secs.forEach(function (d) { d.open = false; }); });
+  window.addEventListener('beforeprint', function () { secs.forEach(function (d) { d.open = true; }); });
+  var links = Array.prototype.slice.call(document.querySelectorAll('.side .toc a'));
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) {
+          links.forEach(function (a) { a.classList.toggle('current', a.getAttribute('href') === '#' + e.target.id); });
+        }
+      });
+    }, { rootMargin: '0px 0px -70% 0px' });
+    secs.forEach(function (d) { io.observe(d); });
+  }
+})();
+</script>
+</body>
+</html>
